@@ -29,6 +29,12 @@ jobs:
       - name: Instalar dependências
         run: pip install google-generativeai
 
+      - name: Garantir que o arquivo de log existe
+        run: |
+          if [ ! -f "${{ github.event.inputs.error_log_path }}" ]; then
+            touch "${{ github.event.inputs.error_log_path }}"
+          fi
+
       - name: Rodar o bot de correção com IA
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
